@@ -1,0 +1,452 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --amber:#C8810A;--amber-light:#F5A623;--amber-bg:#1C1200;--amber-mid:#2A1A00;--amber-glow:rgba(200,129,10,0.18);
+  --cyan:#0FA87E;--cyan-light:#3DD9A8;--cyan-bg:#001C14;--cyan-mid:#00261A;--cyan-glow:rgba(15,168,126,0.18);
+  --bg:#0D0D0D;--surface:#141414;--border:rgba(255,255,255,0.07);
+  --text:#F0EDE8;--muted:rgba(240,237,232,0.45);--subtle:rgba(240,237,232,0.22);
+}
+
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;min-height:100vh}
+
+/* HEADER */
+.hdr{
+  background:var(--surface);border-bottom:0.5px solid var(--border);
+  padding:16px 24px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+  animation:fadeDown 0.5s ease both;
+}
+.hdr-left{display:flex;flex-direction:column;gap:3px}
+.hdr-inst{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.hdr-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text);line-height:1.4;max-width:520px}
+.hdr-team{font-size:11px;color:var(--subtle)}
+.hdr-pill{
+  flex-shrink:0;font-size:10px;padding:5px 12px;border-radius:20px;letter-spacing:0.5px;
+  background:rgba(15,168,126,0.12);color:var(--cyan-light);border:0.5px solid rgba(15,168,126,0.3);
+  white-space:nowrap;align-self:flex-start
+}
+
+/* TEMA CENTRAL */
+.tema-bar{
+  background:var(--bg);padding:14px 24px;border-bottom:0.5px solid var(--border);
+  animation:fadeUp 0.6s 0.1s ease both;
+}
+.tema-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--subtle);margin-bottom:5px}
+.tema-text{
+  font-family:'Syne',sans-serif;font-size:12px;font-weight:400;color:var(--muted);
+  line-height:1.65;max-width:800px;font-style:italic
+}
+.tema-text strong{color:var(--text);font-weight:700;font-style:normal}
+
+/* THESIS */
+.thesis-wrap{
+  padding:18px 24px;background:linear-gradient(135deg,rgba(200,129,10,0.06) 0%,rgba(15,168,126,0.06) 100%);
+  border-bottom:0.5px solid var(--border);
+  animation:fadeUp 0.6s 0.2s ease both;
+}
+.thesis-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--subtle);margin-bottom:7px;display:flex;align-items:center;gap:8px}
+.thesis-label::before,.thesis-label::after{content:'';flex:1;height:0.5px;background:var(--border)}
+.thesis-text{
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-align:center;
+  line-height:1.65;color:var(--text)
+}
+
+/* ARENA */
+.arena{display:grid;grid-template-columns:1fr 44px 1fr;min-height:380px;animation:fadeUp 0.6s 0.3s ease both}
+
+.side{display:flex;flex-direction:column}
+.side-l{background:var(--amber-bg)}
+.side-r{background:var(--cyan-bg)}
+
+.side-hdr{padding:12px 16px 10px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:10px}
+.side-hdr-l{background:var(--amber-mid)}
+.side-hdr-r{background:var(--cyan-mid)}
+.side-icon{font-size:18px}
+.side-label-a{font-size:11px;font-weight:500;color:var(--amber-light);font-family:'Syne',sans-serif}
+.side-label-c{font-size:11px;font-weight:500;color:var(--cyan-light);font-family:'Syne',sans-serif}
+.side-sub{font-size:10px;color:var(--subtle);margin-top:2px}
+
+.arg-list{flex:1;padding:4px 0}
+.arg-item{
+  padding:11px 16px;cursor:pointer;border-left:2px solid transparent;
+  transition:background 0.2s,border-color 0.2s;
+}
+.arg-item:hover{background:rgba(255,255,255,0.03)}
+.arg-item.act-a{background:var(--amber-glow);border-left-color:var(--amber-light)}
+.arg-item.act-c{background:var(--cyan-glow);border-left-color:var(--cyan-light)}
+.arg-num{font-size:9px;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:3px}
+.arg-num-a{color:var(--amber)}
+.arg-num-c{color:var(--cyan)}
+.arg-title{font-size:12px;font-weight:500;color:rgba(240,237,232,0.85);margin-bottom:3px;font-family:'Syne',sans-serif}
+.arg-desc{font-size:11px;color:var(--subtle);line-height:1.5}
+
+/* VS CENTER */
+.vs-col{
+  display:flex;flex-direction:column;align-items:center;
+  background:var(--bg);border-left:0.5px solid var(--border);border-right:0.5px solid var(--border);
+  position:relative;
+}
+.vs-line-top,.vs-line-bot{flex:1;width:0.5px;background:linear-gradient(to bottom,transparent,var(--border))}
+.vs-line-bot{background:linear-gradient(to top,transparent,var(--border))}
+.vs-badge{
+  font-family:'Syne',sans-serif;font-size:13px;font-weight:800;
+  padding:8px 5px;letter-spacing:1px;color:var(--muted);
+  border:0.5px solid var(--border);border-radius:6px;
+  background:var(--surface);flex-shrink:0;text-align:center;
+}
+
+/* DETAIL */
+.detail-wrap{
+  border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);
+  background:var(--surface);min-height:72px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.detail-empty{font-size:12px;color:var(--subtle);text-align:center;padding:18px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;width:100%;height:100%}
+.d-col{padding:14px 18px}
+.d-col-l{border-right:0.5px solid var(--border)}
+.d-col-label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.d-col-label-a{color:var(--amber)}
+.d-col-label-c{color:var(--cyan)}
+.d-col-text{font-size:12px;color:rgba(240,237,232,0.7);line-height:1.6}
+.d-ev{font-size:10px;color:var(--subtle);margin-top:5px;font-style:italic}
+
+/* METER */
+.meter-wrap{background:var(--bg);padding:16px 24px;border-bottom:0.5px solid var(--border);animation:fadeUp 0.6s 0.4s ease both}
+.meter-top{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.meter-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text)}
+.meter-sub{font-size:10px;color:var(--subtle)}
+.meter-legend{display:flex;gap:14px}
+.m-leg{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:5px}
+.m-dot{width:7px;height:7px;border-radius:50%}
+.m-dot-a{background:var(--amber-light)}
+.m-dot-c{background:var(--cyan-light)}
+.meter-bar{
+  height:30px;border-radius:6px;overflow:hidden;display:flex;
+  border:0.5px solid var(--border);margin-bottom:8px;
+}
+.m-seg{
+  height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:500;transition:flex 0.7s cubic-bezier(0.4,0,0.2,1);
+  font-family:'Syne',sans-serif;
+}
+.m-seg-a{background:rgba(200,129,10,0.55);color:#F5A623;border-right:0.5px solid rgba(200,129,10,0.3)}
+.m-seg-c{background:rgba(15,168,126,0.45);color:#3DD9A8}
+.slider-row{display:flex;align-items:center;gap:10px}
+.slider-row label{font-size:10px;color:var(--subtle);white-space:nowrap}
+.slider-row input[type=range]{
+  flex:1;-webkit-appearance:none;height:3px;background:var(--border);border-radius:2px;outline:none;cursor:pointer
+}
+.slider-row input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:14px;height:14px;border-radius:50%;
+  background:var(--amber-light);border:2px solid var(--bg);cursor:pointer
+}
+.slider-val{font-size:11px;color:var(--muted);min-width:32px;text-align:right;font-family:'Syne',sans-serif}
+
+/* CONCLUSION */
+.conc-wrap{background:var(--surface);padding:14px 24px;animation:fadeUp 0.6s 0.5s ease both}
+.conc-btn{
+  width:100%;padding:11px 16px;background:var(--bg);
+  border:0.5px solid var(--border);border-radius:8px;
+  font-size:12px;font-weight:500;color:var(--text);cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background 0.2s,border-color 0.2s;font-family:'DM Sans',sans-serif;
+}
+.conc-btn:hover{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.15)}
+.conc-panel{
+  margin-top:12px;padding:16px;background:var(--bg);
+  border:0.5px solid var(--border);border-radius:8px;
+  animation:expandIn 0.3s ease both;transform-origin:top;
+}
+.conc-hl{
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:700;
+  color:var(--text);margin-bottom:10px;line-height:1.5
+}
+.conc-body{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px}
+.conc-points{display:flex;flex-direction:column;gap:7px}
+.c-pt{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--muted);line-height:1.5}
+.c-pt-icon{font-size:13px;flex-shrink:0;margin-top:1px}
+.c-pt-a{color:var(--amber-light)}
+.c-pt-c{color:var(--cyan-light)}
+.c-pt-n{color:var(--subtle)}
+
+/* ANIMATIONS */
+@keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes expandIn{from{opacity:0;transform:scaleY(0.9)}to{opacity:1;transform:scaleY(1)}}
+@keyframes pulseA{0%,100%{box-shadow:0 0 0 0 rgba(200,129,10,0)}50%{box-shadow:0 0 0 3px rgba(200,129,10,0.25)}}
+@keyframes pulseC{0%,100%{box-shadow:0 0 0 0 rgba(15,168,126,0)}50%{box-shadow:0 0 0 3px rgba(15,168,126,0.25)}}
+
+.act-a.pulse-a{animation:pulseA 1.2s ease 1}
+.act-c.pulse-c{animation:pulseC 1.2s ease 1}
+
+/* detail transition */
+.detail-grid{animation:fadeUp 0.25s ease both}
+
+/* Numeric counter animation */
+@keyframes countUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">
+  Infografía interactiva: El valor actual del título universitario en la sociedad contemporánea. UAO 2026.
+</h2>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-left">
+    <span class="hdr-inst">Universidad Autónoma de Occidente · UAO · 2026 · COYE · Ing. Datos e IA · Prof. Humberto Jarrín B.</span>
+    <div class="hdr-title">El valor actual del título universitario en la sociedad contemporánea</div>
+    <span class="hdr-team">Flórez · Bernal · Buitrago</span>
+  </div>
+  <span class="hdr-pill">Sustentación final</span>
+</div>
+
+<!-- TEMA -->
+<div class="tema-bar">
+  <div class="tema-label">Tema y pregunta de investigación</div>
+  <div class="tema-text">
+    <strong>¿Requisito indispensable para el éxito profesional</strong> o un recurso en declive frente a las nuevas <strong>competencias digitales y blandas?</strong>
+  </div>
+</div>
+
+<!-- THESIS -->
+<div class="thesis-wrap">
+  <div class="thesis-label">Tesis central</div>
+  <div class="thesis-text">"En el mercado laboral contemporáneo, el título universitario ha dejado de ser un requisito indispensable para alcanzar el éxito profesional, cediendo su protagonismo a las habilidades prácticas, la adaptabilidad tecnológica y el aprendizaje continuo."</div>
+</div>
+
+<!-- ARENA -->
+<div class="arena">
+  <div class="side side-l">
+    <div class="side-hdr side-hdr-l">
+      <i class="ti ti-school side-icon" style="color:var(--amber-light)" aria-hidden="true"></i>
+      <div>
+        <div class="side-label-a">Postura tradicional</div>
+        <div class="side-sub">El título como credencial única</div>
+      </div>
+    </div>
+    <div class="arg-list" id="left-list"></div>
+  </div>
+
+  <div class="vs-col">
+    <div class="vs-line-top"></div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-line-bot"></div>
+  </div>
+
+  <div class="side side-r">
+    <div class="side-hdr side-hdr-r">
+      <i class="ti ti-cpu side-icon" style="color:var(--cyan-light)" aria-hidden="true"></i>
+      <div>
+        <div class="side-label-c">Postura contemporánea</div>
+        <div class="side-sub">Habilidades, IA y adaptabilidad</div>
+      </div>
+    </div>
+    <div class="arg-list" id="right-list"></div>
+  </div>
+</div>
+
+<!-- DETAIL -->
+<div class="detail-wrap" id="detail-wrap">
+  <div class="detail-empty">
+    <i class="ti ti-hand-click" aria-hidden="true" style="font-size:18px;opacity:0.3;"></i>
+    Selecciona un argumento para ver el análisis comparativo
+  </div>
+</div>
+
+<!-- METER -->
+<div class="meter-wrap">
+  <div class="meter-top">
+    <div>
+      <div class="meter-title"><i class="ti ti-chart-bar" aria-hidden="true" style="font-size:14px;margin-right:6px;vertical-align:-1px;"></i>Termómetro de relevancia laboral actual</div>
+      <div class="meter-sub">¿Qué priorizan los empleadores en tecnología hoy? · Arrastra para explorar escenarios</div>
+    </div>
+    <div class="meter-legend">
+      <div class="m-leg"><div class="m-dot m-dot-a"></div>Título formal</div>
+      <div class="m-leg"><div class="m-dot m-dot-c"></div>Habilidades + experiencia</div>
+    </div>
+  </div>
+  <div class="meter-bar">
+    <div class="m-seg m-seg-a" id="seg-a" style="flex:30">30%</div>
+    <div class="m-seg m-seg-c" id="seg-c" style="flex:70">70%</div>
+  </div>
+  <div class="slider-row">
+    <label>Peso del título (%)</label>
+    <input type="range" min="5" max="95" value="30" step="1" id="meter-sl" aria-label="Ajustar peso del título universitario">
+    <span class="slider-val" id="meter-val">30%</span>
+  </div>
+</div>
+
+<!-- CONCLUSION -->
+<div class="conc-wrap">
+  <button class="conc-btn" id="conc-btn" aria-expanded="false">
+    <span><i class="ti ti-bulb" aria-hidden="true" style="margin-right:8px;font-size:14px;vertical-align:-1px;"></i>Síntesis y conclusión del ensayo</span>
+    <i class="ti ti-chevron-down" id="conc-ic" aria-hidden="true"></i>
+  </button>
+  <div id="conc-panel" style="display:none"></div>
+</div>
+
+<script>
+const ARGS = [
+  {
+    num:"Argumento 1", label:"Demanda de habilidades prácticas",
+    left:{
+      title:"El título como filtro de contratación",
+      desc:"Credencial académica sobre competencias demostrables",
+      detail:"El modelo tradicional asume que el título universitario garantiza una preparación sólida y credibilidad ante las empresas. Las organizaciones usan el diploma como filtro inicial, valorando la institución y los años de formación.",
+      ev:null
+    },
+    right:{
+      title:"Skills-based hiring",
+      desc:"Portafolios, proyectos reales y certificaciones verificables",
+      detail:"Informes de LinkedIn muestran que muchas empresas están priorizando habilidades demostrables sobre títulos. En programación, marketing digital y diseño gráfico, personas consiguen empleos bien remunerados gracias a cursos virtuales y portafolios, sin diploma universitario.",
+      ev:"LinkedIn Workforce Reports · casacochecurro.com"
+    }
+  },
+  {
+    num:"Argumento 2", label:"Adaptabilidad tecnológica",
+    left:{
+      title:"La vigencia del diploma formal",
+      desc:"El título como aval de preparación profesional",
+      detail:"Quienes defienden el título argumentan que la universidad brinda pensamiento crítico, disciplina y formación integral que ninguna plataforma virtual puede reemplazar. Las empresas siguen valorando la credibilidad institucional al contratar.",
+      ev:null
+    },
+    right:{
+      title:"Google, Apple y Meta sin requisito de título",
+      desc:"La experiencia técnica supera la credencial académica",
+      detail:"La IA y las nuevas tecnologías obligan a actualizar conocimientos continuamente. Google, Apple y Meta han eliminado o reducido la exigencia del título universitario en varias vacantes, priorizando experiencia y habilidades técnicas demostrables.",
+      ev:"revistaespejo.com · agenhoy.com.ar · Google Careers"
+    }
+  },
+  {
+    num:"Argumento 3", label:"Aprendizaje continuo",
+    left:{
+      title:"Currículos académicos estructurados",
+      desc:"La formación universitaria como base sólida y completa",
+      detail:"La educación formal ofrece una trayectoria curricular coherente que integra teoría, práctica y formación en valores. Este recorrido estructurado difícilmente se replica en plataformas de cursos cortos.",
+      ev:null
+    },
+    right:{
+      title:"Plataformas virtuales y micro-certificaciones",
+      desc:"Millones aprenden habilidades laborales sin universidad",
+      detail:"Plataformas como Coursera, LinkedIn Learning y los certificados de Google (desde $300, 6 meses) permiten desarrollar habilidades laborales específicas con reconocimiento empresarial real. El aprendizaje continuo se ha convertido en una necesidad del mercado moderno.",
+      ev:"xataka.com · LinkedIn News · Google Career Certificates"
+    }
+  },
+  {
+    num:"Contraargumento y refutación", label:"El balance entre tradición e innovación",
+    left:{
+      title:"El título sigue siendo relevante",
+      desc:"Disciplina, pensamiento crítico y credibilidad institucional",
+      detail:"Quienes defienden el título argumentan que la universidad no solo brinda conocimientos técnicos, sino también disciplina, pensamiento crítico y formación profesional integral. En sectores como medicina, derecho e ingeniería, el título sigue siendo un requisito legal.",
+      ev:null
+    },
+    right:{
+      title:"Habilidades + base académica = fórmula ganadora",
+      desc:"La adaptación tecnológica supera al diploma estático",
+      detail:"Aunque el título conserva importancia en algunos sectores, muchas empresas priorizan las habilidades prácticas y la capacidad de adaptación tecnológica. El acceso a certificaciones virtuales permite desarrollar competencias competitivas sin depender exclusivamente de un título.",
+      ev:null
+    }
+  }
+];
+
+let active = null;
+
+function renderLists(){
+  const ll = document.getElementById('left-list');
+  const rl = document.getElementById('right-list');
+  ll.innerHTML=''; rl.innerHTML='';
+  ARGS.forEach((a,i)=>{
+    ['l','r'].forEach(side=>{
+      const isAct = active===i;
+      const cls = isAct ? (side==='l'?'act-a':'act-c') : '';
+      const numCls = side==='l' ? 'arg-num-a' : 'arg-num-c';
+      const d = side==='l' ? a.left : a.right;
+      const el = document.createElement('div');
+      el.className = 'arg-item ' + cls;
+      el.setAttribute('role','button');
+      el.setAttribute('tabindex','0');
+      el.setAttribute('aria-label', a.label + ': ' + d.title);
+      el.innerHTML =
+        '<div class="arg-num '+numCls+'">'+a.num+'</div>'+
+        '<div class="arg-title">'+d.title+'</div>'+
+        '<div class="arg-desc">'+d.desc+'</div>';
+      el.addEventListener('click',()=>{ active = active===i ? null : i; renderLists(); renderDetail(); });
+      el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){active=active===i?null:i;renderLists();renderDetail();}});
+      if(side==='l') ll.appendChild(el); else rl.appendChild(el);
+    });
+  });
+}
+
+function renderDetail(){
+  const dw = document.getElementById('detail-wrap');
+  if(active===null){
+    dw.innerHTML='<div class="detail-empty"><i class="ti ti-hand-click" aria-hidden="true" style="font-size:18px;opacity:0.3;"></i>Selecciona un argumento para ver el análisis comparativo</div>';
+    return;
+  }
+  const a = ARGS[active];
+  dw.innerHTML =
+    '<div class="detail-grid">'+
+      '<div class="d-col d-col-l">'+
+        '<div class="d-col-label d-col-label-a">Postura tradicional · '+a.label+'</div>'+
+        '<div class="d-col-text">'+a.left.detail+'</div>'+
+        (a.left.ev?'<div class="d-ev">Fuente: '+a.left.ev+'</div>':'')+
+      '</div>'+
+      '<div class="d-col">'+
+        '<div class="d-col-label d-col-label-c">Postura contemporánea · '+a.label+'</div>'+
+        '<div class="d-col-text">'+a.right.detail+'</div>'+
+        (a.right.ev?'<div class="d-ev">Fuente: '+a.right.ev+'</div>':'')+
+      '</div>'+
+    '</div>';
+}
+
+document.getElementById('meter-sl').addEventListener('input',function(){
+  const v = parseInt(this.value);
+  const o = 100 - v;
+  document.getElementById('seg-a').style.flex = v;
+  document.getElementById('seg-a').textContent = v+'%';
+  document.getElementById('seg-c').style.flex = o;
+  document.getElementById('seg-c').textContent = o+'%';
+  document.getElementById('meter-val').textContent = v+'%';
+  document.getElementById('meter-sl').style.setProperty('--thumb-bg', v > 50 ? 'var(--amber-light)' : 'var(--cyan-light)');
+});
+
+document.getElementById('conc-btn').addEventListener('click',function(){
+  const panel = document.getElementById('conc-panel');
+  const ic = document.getElementById('conc-ic');
+  const open = panel.style.display==='block';
+  if(!open){
+    panel.style.display='block';
+    panel.innerHTML =
+      '<div class="conc-panel">'+
+        '<div class="conc-hl">El aprendizaje es un proceso infinito y la adaptabilidad es la llave maestra de la carrera moderna.</div>'+
+        '<div class="conc-body">Aunque el título universitario continúa siendo importante en algunas áreas, ya no representa el único camino para alcanzar el éxito laboral. Las nuevas exigencias del mercado contemporáneo han demostrado que las habilidades prácticas, la adaptabilidad tecnológica y el aprendizaje continuo tienen un papel cada vez más relevante en los procesos de contratación y el crecimiento profesional.</div>'+
+        '<div class="conc-points">'+
+          '<div class="c-pt"><i class="ti ti-arrow-right c-pt-icon c-pt-a" aria-hidden="true"></i><span>La universidad aporta fundamentos sólidos: rigor intelectual, pensamiento crítico, ética y visión sistémica.</span></div>'+
+          '<div class="c-pt"><i class="ti ti-arrow-right c-pt-icon c-pt-c" aria-hidden="true"></i><span>El mercado exige ejecución inmediata: certificaciones modulares, portafolios técnicos y proyectos reales demostrables.</span></div>'+
+          '<div class="c-pt"><i class="ti ti-arrow-right c-pt-icon c-pt-c" aria-hidden="true"></i><span>Google, Apple y Meta eliminaron el requisito de título en vacantes tech. El skills-based hiring es el nuevo estándar.</span></div>'+
+          '<div class="c-pt"><i class="ti ti-arrow-right c-pt-icon c-pt-n" aria-hidden="true"></i><span>El éxito profesional depende no solo de un diploma, sino de la capacidad de actualizarse constantemente ante los cambios del entorno laboral.</span></div>'+
+        '</div>'+
+      '</div>';
+  } else {
+    panel.style.display='none';
+    panel.innerHTML='';
+  }
+  ic.className = open ? 'ti ti-chevron-down' : 'ti ti-chevron-up';
+  this.setAttribute('aria-expanded', String(!open));
+});
+
+renderLists();
+renderDetail();
+</script>
+</body>
+</html>
